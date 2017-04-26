@@ -1,0 +1,123 @@
+/* ----------------------------------------------------------------------------- *\
+   RESETS
+\* ----------------------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background: rgba(179, 212, 252, 1);
+    text-shadow: none;
+}
+
+audio,
+canvas,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+button,
+input,
+select {
+    color: $color-primary;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    color: $color-primary;
+    resize: vertical;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid rgba(204, 204, 204, 1);
+    margin: 0.35em 2em;
+    padding: 0;
+}
+
+p,
+ol,
+ul,
+blockquote,
+figure {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+button, 
+button:focus, 
+button:active,
+input[type="button"], 
+input[type="button"]:focus, 
+input[type="button"]:active {
+    /* Remove all decorations to look like normal text */
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    cursor: pointer;
+}
+/* Remove extra space inside buttons in Firefox */
+input[type="button"]::-moz-focus-inner,
+button::-moz-focus-inner {
+    border: none;
+    padding: 0;
+}
+
+iframe {
+    border: 0;
+    max-width: 100%;
+}
+
+
+/* ----------------------------------------------------------------------------- *\
+   UTILITIES
+\* ----------------------------------------------------------------------------- */
+
+%clearfix {
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+%ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 150%;
+    }
+}
+
+.clearfix {
+    @extend %clearfix;
+}
+
+.ir {
+    @extend %ir;
+}

@@ -2,16 +2,35 @@
    DEFAULTS
 \* ----------------------------------------------------------------------------- */
 
-@import "defaults/breakpoints";
-@import "defaults/colors";
-@import "defaults/paths";
+@import 'defaults/breakpoints';
+@import 'defaults/colors';
+@import 'defaults/paths';
+@import 'defaults/variables';
 
-$base-font-size: 16 !default;
+/* ----------------------------------------------------------------------------- *\
+   NORMALIZE
+\* ----------------------------------------------------------------------------- */
+@import 'normalize';
+
+/* ----------------------------------------------------------------------------- *\
+   VENDOR
+\* ----------------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------------- *\
    MIXINS
 \* ----------------------------------------------------------------------------- */
+@import 'mixins/breakpoints';
+@import 'mixins/visibility';
+@import 'mixins/font-size';
+@import 'mixins/font-family';
+@import 'mixins/center';
+@import 'mixins/icon';
+@import 'mixins/letter-spacing';
+@import 'mixins/pseudo';
+@import 'mixins/image-block';
+@import 'mixins/transition';
 
-@import "normalize";
-@import "mixins/font-size";
-@import "mixins/font-family";
+/* ----------------------------------------------------------------------------- *\
+   FUNCTIONS
+\* ----------------------------------------------------------------------------- */
+@import 'functions/px';

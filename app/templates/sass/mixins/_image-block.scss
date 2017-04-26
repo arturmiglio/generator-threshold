@@ -1,0 +1,9 @@
+@mixin image-block($image, $width, $height: $width) {
+  display: inline-block;
+  width: $width;
+  height: 0;
+  overflow: hidden;
+  padding-top: $height;
+  background: url($path-images + '/' + $image) center no-repeat;
+  background-size: contain;
+}

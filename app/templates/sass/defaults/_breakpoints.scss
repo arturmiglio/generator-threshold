@@ -1,5 +1,7 @@
-$bp-mobile: 320px;
-$bp-mobile-landscape: (320px 768px) (orientation landscape);
+$-zf-zero-breakpoint: 0px;
+$bp-mobile: 320px;   
+$bp-mobile-landscape: 767px;
 $bp-tablet: 768px;
-$bp-tablet-landscape: (768px 1024px) (orientation landscape);
+$bp-tablet-landscape: 1024px;
 $bp-desktop: 1025px;
+$bp-desktop-low-height: 830px;

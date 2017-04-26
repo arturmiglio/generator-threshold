@@ -1,9 +1,9 @@
 @mixin icon($icon-name) {
     content: $icon-name;
-    font-family: "icomoon";
+    font-family: "miimo-icons";
     font-style: normal;
     font-weight: normal;
-    line-height: 1;
+    // line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
