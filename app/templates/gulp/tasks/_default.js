@@ -15,6 +15,6 @@ gulp.task('default', function(cb) {
         ],<% } %>
         'sass',
         'watch',
-        'browser-sync',
+        'serve-dev',
         cb);
 });

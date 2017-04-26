@@ -7,4 +7,12 @@
     "js": "js",
     "img": "images"<% if (useSprites) { %>,
     "sprites": "sprites"<% } %>
+    <% if (useDeploy === 'ftp') { %> "ftp": {
+    	"staging": {
+    		"host": "demo.antiloop.io",
+    		"user": "anonymous", // change to real user
+    		"pass": "anonymous@", // change to real password, AND remember not to push ftp credentials to public repos
+    		"remotePath": "/web/<%= client %>/<%= path_slug %>"
+    	}
+    }<% } %>
 }

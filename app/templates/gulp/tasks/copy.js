@@ -5,8 +5,8 @@ var gulp = require('gulp'),
 
 gulp.task('copy', function() {
     return gulp.src([
-            config.img + '/**',<% if (useIconFont) { %>
-            config.fonts + '/icomoon/fonts/**',<% } %>
+            config.img + '/**',
+            config.fonts + '/**',
             '.htaccess'<% if (useSprites) { %>,
             '!' + config.img + '/' + config.sprites<% } %>
         ], {base: '.'})

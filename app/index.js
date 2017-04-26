@@ -20,6 +20,11 @@ module.exports = generators.Base.extend({
         this.prompt([
             {
                 type: 'input',
+                name: 'client',
+                message: 'Client name'
+            },
+            {
+                type: 'input',
                 name: 'title',
                 message: 'Project name'
             },
@@ -37,19 +42,19 @@ module.exports = generators.Base.extend({
                 type: 'input',
                 name: 'name',
                 message: 'Your name',
-                default: 'Matt Przybylski'
+                default: 'Artur Miglio'
             },
             {
                 type: 'input',
                 name: 'email',
                 message: 'Your email',
-                default: 'mprzybylski@gmail.com'
+                default: 'arturmiglio@gmail.com'
             },
             {
                 type: 'input',
                 name: 'site',
                 message: 'Your site URL',
-                default: 'http://www.reintroducing.com'
+                default: 'http://www.arturmiglio.com'
             },
             {
                 type: 'list',
@@ -76,7 +81,7 @@ module.exports = generators.Base.extend({
             {
                 type: 'confirm',
                 name: 'backbone',
-                message: 'Use Backbone? (Includes jQuery)',
+                message: 'Use Backbone? (Includes jQuery and Marionette)',
                 default: false
             },
             {
@@ -95,16 +100,30 @@ module.exports = generators.Base.extend({
                 type: 'confirm',
                 name: 'icons',
                 message: 'Use icon font?',
-                default: false
+                default: true
             },
             {
                 type: 'confirm',
                 name: 'jpgm',
                 message: 'Use JPEGmini during image minification?',
-                default: true
+                default: false
+            },
+            {
+                type: 'list',
+                name: 'deploy',
+                message: 'Use deploy automation?',
+                choices: [
+                    'None',
+                    'FTP',
+                    'SSH',
+                    'Firebase'
+                ],
+                default: 'Firebase'
             }
         ], function(answers) {
+            this.client = answers.client;
             this.title = answers.title;
+            this.path_slug = answers.title.split(' ').join('-').toLowerCase();
             this.description = answers.description;
             this.git = answers.git;
             this.name = answers.name;
@@ -120,6 +139,13 @@ module.exports = generators.Base.extend({
             this.useIconFont = answers.icons;
             this.useJPEGmini = answers.jpgm;
             this.useBabel = false;
+            this.useDeploy = answers.deploy.toLowerCase();
+
+            if(this.useDeploy !== 'firebase') {
+                this.useFirebase = false;
+            } else {
+                this.useFirebase = true;
+            }
 
             if (this.esv !== 'es5') {
                 this.useBrowserify = true;
@@ -136,8 +162,10 @@ module.exports = generators.Base.extend({
 
     writing: function() {
         var config = {
+                client: this.client,
                 title: this.title,
                 slug: this.appname,
+                path_slug: this.path_slug,
                 description: this.description,
                 git: this.git,
                 year: new Date().getFullYear(),
@@ -153,7 +181,9 @@ module.exports = generators.Base.extend({
                 useReact: this.useReact,
                 useSprites: this.useSprites,
                 useIconFont: this.useIconFont,
-                useJPEGmini: this.useJPEGmini
+                useJPEGmini: this.useJPEGmini,
+                useDeploy: this.useDeploy,
+                useFirebase: this.useFirebase
             };
 
         // general files
@@ -174,13 +204,16 @@ module.exports = generators.Base.extend({
         this.fs.copyTpl(this.templatePath('gulp/config.json'), this.destinationPath('gulp/config.json'), config);
         this.fs.copyTpl(this.templatePath('gulp/tasks/_build.js'), this.destinationPath('gulp/tasks/_build.js'), config);
         this.fs.copyTpl(this.templatePath('gulp/tasks/_default.js'), this.destinationPath('gulp/tasks/_default.js'), config);
-        this.fs.copyTpl(this.templatePath('gulp/tasks/browser-sync.js'), this.destinationPath('gulp/tasks/browser-sync.js'));
-        this.fs.copyTpl(this.templatePath('gulp/tasks/clean.js'), this.destinationPath('gulp/tasks/clean.js'));
+        this.fs.copyTpl(this.templatePath('gulp/tasks/_deploy.js'), this.destinationPath('gulp/tasks/_deploy.js'), config);
+        this.fs.copyTpl(this.templatePath('gulp/tasks/_serve-build.js'), this.destinationPath('gulp/tasks/_serve-build.js'), config);
+        this.fs.copyTpl(this.templatePath('gulp/tasks/_serve-dev.js'), this.destinationPath('gulp/tasks/_serve-dev.js'), config);
+        // this.fs.copyTpl(this.templatePath('gulp/tasks/browser-sync.js'), this.destinationPath('gulp/tasks/browser-sync.js'), config);
+        this.fs.copyTpl(this.templatePath('gulp/tasks/clean.js'), this.destinationPath('gulp/tasks/clean.js'), config);
         this.fs.copyTpl(this.templatePath('gulp/tasks/copy.js'), this.destinationPath('gulp/tasks/copy.js'), config);
         this.fs.copyTpl(this.templatePath('gulp/tasks/imagemin.js'), this.destinationPath('gulp/tasks/imagemin.js'), config);
         this.fs.copyTpl(this.templatePath('gulp/tasks/lint.js'), this.destinationPath('gulp/tasks/lint.js'), config);
-        this.fs.copyTpl(this.templatePath('gulp/tasks/sass.js'), this.destinationPath('gulp/tasks/sass.js'));
-        this.fs.copyTpl(this.templatePath('gulp/tasks/usemin.js'), this.destinationPath('gulp/tasks/usemin.js'));
+        this.fs.copyTpl(this.templatePath('gulp/tasks/sass.js'), this.destinationPath('gulp/tasks/sass.js'), config);
+        this.fs.copyTpl(this.templatePath('gulp/tasks/usemin.js'), this.destinationPath('gulp/tasks/usemin.js'), config);
         this.fs.copyTpl(this.templatePath('gulp/tasks/watch.js'), this.destinationPath('gulp/tasks/watch.js'), config);
 
         if (this.useBrowserify) {
@@ -197,8 +230,12 @@ module.exports = generators.Base.extend({
             this.fs.copy(this.templatePath('backbone/' + this.esv + '/models'), this.destinationPath('js/models'));
             this.fs.copy(this.templatePath('backbone/' + this.esv + '/routers'), this.destinationPath('js/routers'));
             this.fs.copy(this.templatePath('backbone/' + this.esv + '/views'), this.destinationPath('js/views'));
+            this.fs.copy(this.templatePath('backbone/' + this.esv + '/utils'), this.destinationPath('js/utils'));
 
-            this.fs.copy(this.templatePath('backbone/templates/home'), this.destinationPath('templates/home'));
+            // TODO translate new files to ES6
+
+            this.fs.copy(this.templatePath('backbone/templates/root'), this.destinationPath('templates/root'));
+            this.fs.copy(this.templatePath('backbone/json'), this.destinationPath('js/json'));
         } else if (this.useReact) {
             this.fs.copy(this.templatePath('react/' + this.esv + '/app.js'), this.destinationPath('js/app.js'));
             this.fs.copy(this.templatePath('react/' + this.esv + '/components'), this.destinationPath('js/components'));
@@ -232,26 +269,34 @@ module.exports = generators.Base.extend({
 
     installDependencies: function() {
         var devDependencies = [
+                'autoprefixer',
                 'browser-sync',
                 'del',
                 'gulp',
-                'gulp-autoprefixer',
+                'gulp-clean-css',
                 'gulp-eslint',
+                'gulp-filter',
                 'gulp-if',
-                'gulp-minify-css',
+                'gulp-jspm',
                 'gulp-notify',
+                'gulp-postcss',
+                'gulp-rename',
+                'gulp-replace',
                 'gulp-sass',
                 'gulp-shell',
                 'gulp-sourcemaps',
                 'gulp-uglify',
                 'gulp-usemin',
                 'gulp-util',
+                'gulp-wrap',
                 'imageoptim-cli',
                 'jshint-stylish',
+                'merge-stream',
                 'pretty-hrtime',
                 'require-dir',
-                'run-sequence'
-
+                'run-sequence',
+                'vinyl-ftp',
+                'yargs'
             ],
             dependencies = [];
 
@@ -262,7 +307,11 @@ module.exports = generators.Base.extend({
                 'vinyl-source-stream',
                 'watchify'
             );
-            dependencies.push('lodash');
+            dependencies.push(
+                'lodash',
+                'browserify-jst',
+                'browserify-require-async'
+            );
 
             if (this.usejQuery || this.useBackbone) {
                 devDependencies.push('browserify-shim');
@@ -281,10 +330,12 @@ module.exports = generators.Base.extend({
 
         if (this.useBackbone) {
             devDependencies.push(
-                'node-underscorify'
+                'node-underscorify',
+                'eslint-plugin-backbone'
             );
             dependencies.push(
                 'backbone',
+                'backbone.marionette'
                 'lodash'
             );
         }

@@ -3,10 +3,13 @@
 .tmp
 .ftppass
 _internal
+_material
 _dist
 npm-debug.log
 node_modules
+bower_components
 css/main.css
 css/main.css.map
 <% if (useBrowserify) { %>js/bundle.js
+js/vendor.js
 js/bundle.js.map<% } %>
