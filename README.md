@@ -78,6 +78,7 @@ The spritesheets get generated every time you run Gulp (or manually run the `spr
 * Add unit testing support.
 * Add generator input for different types of licenses to automatically generate them.
 * Translate new Backbone base to ES6
+* Add subgenerators
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)
