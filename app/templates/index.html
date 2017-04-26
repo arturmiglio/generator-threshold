@@ -2,12 +2,32 @@
 <!--[if IE 9 ]><html lang="en" class="ie ie9"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
     <head>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- COMMON METAS -->
         <meta charset="UTF-8">
-
         <title><%= title %></title>
+        <!-- Search Engine -->
+        <meta name="description" content="<%= description %>">
+        <meta name="image" content="xxx.jpg">
+        <!-- Schema.org for Google -->
+        <meta itemprop="name" content="<%= title %>">
+        <meta itemprop="description" content="<%= description %>">
+        <meta itemprop="image" content="xxx.jpg">
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="<%= title %>">
+        <meta name="twitter:description" content="<%= description %>">
+        <meta name="twitter:image:src" content="xxx.jpg">
+        <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+        <meta property="og:title" content="<%= title %>">
+        <meta property="og:description" content="<%= description %>">
+        <meta property="og:image" content="xxx.jpg">
+        <meta property="og:url" content="http://www.xxx.com/">
+        <meta property="og:site_name" content="<%= title %>">
+        <meta property="og:locale" content="xx_XX">
+        <meta property="fb:app_id" content="XXXXX">
+        <meta property="og:type" content="website">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- build:css css/main.min.css -->
         <link rel="stylesheet" href="css/main.css">
@@ -15,7 +35,11 @@
     </head>
 
     <body>
-        <div <% if (useReact) { %>id<% } else { %>class<% } %>="wrapper"></div>
+        <main <% if (useReact || useBackbone) { %>id="application-wrapper"<% } %>></main>
+
+        <% if (useBackbone) { %><!-- build:jsVendor js/vendor.min.js -->
+        <script src="js/vendor.js"></script>
+        <!-- endbuild --><% } %>
 
         <!-- build:js js/main.min.js -->
         <% if (usejQuery && !useBrowserify) { %><script src="node_modules/jquery/dist/jquery.js"></script><% } %>
