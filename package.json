@@ -1,16 +1,16 @@
 {
-  "name": "generator-threshold",
+  "name": "generator-webfront",
   "description": "A Yeoman generator for my front-end workflow with many great options to get you up and running quickly.",
   "version": "0.1.0",
-  "homepage": "https://github.com/reintroducing/generator-threshold",
+  "homepage": "https://github.com/arturmiglio/generator-webfront",
   "author": {
-    "name": "Matt Przybylski",
-    "email": "mprzybylski@gmail.com",
-    "url": "http://www.reintroducing.com"
+    "name": "Artur Miglio",
+    "email": "arturmiglio@gmail.com",
+    "url": "http://www.arturmiglio.com"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:reintroducing/generator-threshold.git"
+    "url": "git@github.com:arturmiglio/generator-webfront.git"
   },
   "license": "MIT",
   "main": "app/index.js",

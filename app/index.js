@@ -335,7 +335,7 @@ module.exports = generators.Base.extend({
             );
             dependencies.push(
                 'backbone',
-                'backbone.marionette'
+                'backbone.marionette',
                 'lodash'
             );
         }
