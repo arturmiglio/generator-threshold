@@ -1,4 +1,4 @@
-# Threshold
+# WebFront
 When I start a new project I'm all about efficiency and usually use the same things from project to project. I don't like to copy/paste files around so I ended up creating a few grunt-init templates to get up and running quickly.
 
 This was great until it turned into a giant chore to update dependencies of npm packages across three different repos, duplicating files when stuff got updated, etc.  I decided to write a Yeoman generator and be done with it.
@@ -28,9 +28,9 @@ This will allow me to easily add new frameworks and lessen the burden of managin
 1. If you don't already have Yeoman installed you'll need to install it as well.
   * `sudo npm install yo -g`
 1. Install the generator.
-  * `sudo npm install generator-threshold -g`
+  * `sudo npm install generator-webfront -g`
 1. Run the generator and create a project.
-  * `yo threshold [app-name]`
+  * `yo webfront [app-name]`
   * Follow the prompts to input your information.
 1. Start Gulp to run a local development server.
   * `gulp`
