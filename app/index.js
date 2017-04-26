@@ -64,7 +64,7 @@ module.exports = generators.Base.extend({
                     'ES5',
                     'ES6'
                 ],
-                default: 'ES6'
+                default: 'ES5'
             },
             {
                 type: 'confirm',
