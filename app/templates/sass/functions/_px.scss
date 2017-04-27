@@ -4,7 +4,7 @@
 
   // If no base is defined, defer to the global font size
   @if $base == null {
-    $base: 9px;
+    $base: $base-font-size;
   }
 
   // If the base font size is a %, then multiply it by 16px
