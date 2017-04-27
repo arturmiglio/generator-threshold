@@ -1,7 +1,7 @@
 {
   "name": "generator-webfront",
   "description": "A Yeoman generator for my front-end workflow adapted from https://github.com/reintroducing/generator-threshold (thanks Matt Przybylski!) with many great options to get you up and running quickly.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/arturmiglio/generator-webfront",
   "author": {
     "name": "Artur Miglio",

@@ -187,9 +187,9 @@ module.exports = generators.Base.extend({
             };
 
         // general files
-        this.fs.copyTpl(this.templatePath('.gitignore'), this.destinationPath('.gitignore'), config);
-        this.fs.copyTpl(this.templatePath('.htaccess'), this.destinationPath('.htaccess'));
-        this.fs.copyTpl(this.templatePath('.eslintrc'), this.destinationPath('.eslintrc'), config);
+        this.fs.copyTpl(this.templatePath('gitignore'), this.destinationPath('.gitignore'), config);
+        this.fs.copyTpl(this.templatePath('htaccess'), this.destinationPath('.htaccess'));
+        this.fs.copyTpl(this.templatePath('eslintrc'), this.destinationPath('.eslintrc'), config);
         this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), config);
         this.fs.copyTpl(this.templatePath('index.html'), this.destinationPath('index.html'), config);
         this.fs.copyTpl(this.templatePath('licenses/' + this.license), this.destinationPath('LICENSE'), config);
