@@ -187,6 +187,7 @@ module.exports = generators.Base.extend({
             };
 
         // general files
+        this.fs.copyTpl(this.templatePath('editorconfig'), this.destinationPath('.editorconfig'), config);
         this.fs.copyTpl(this.templatePath('gitignore'), this.destinationPath('.gitignore'), config);
         this.fs.copyTpl(this.templatePath('htaccess'), this.destinationPath('.htaccess'));
         this.fs.copyTpl(this.templatePath('eslintrc'), this.destinationPath('.eslintrc'), config);
